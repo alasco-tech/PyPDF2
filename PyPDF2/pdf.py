@@ -1059,17 +1059,6 @@ class PdfFileReader(object):
         ``True``).
     """
     def __init__(self, stream, strict=True, warndest = None, overwriteWarnings = True):
-        if overwriteWarnings:
-            # have to dynamically override the default showwarning since there are no
-            # public methods that specify the 'file' parameter
-            def _showwarning(message, category, filename, lineno, file=warndest, line=None):
-                if file is None:
-                    file = sys.stderr
-                try:
-                    file.write(formatWarning(message, category, filename, lineno, line))
-                except IOError:
-                    pass
-            warnings.showwarning = _showwarning
         self.strict = strict
         self.flattenedPages = None
         self.resolvedObjects = {}
